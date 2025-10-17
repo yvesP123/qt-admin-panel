@@ -1,7 +1,5 @@
-<<<<<<< HEAD
-# qt-admin-panel
-=======
-# QT Global Software - Full-Stack Admin Panel
+
+#  Full-Stack mini-Admin Panel
 
 A mini admin panel with user management, built with Next.js (frontend) and Node.js/Express (backend), featuring Protocol Buffers serialization and RSA digital signatures.
 
@@ -25,7 +23,7 @@ A mini admin panel with user management, built with Next.js (frontend) and Node.
 - Crypto (RSA signatures, SHA-384 hashing)
 
 **Frontend:**
-- Next.js 14 (App Router)
+- Next.js 15 (App Router)
 - React
 - Tailwind CSS
 - Chart.js & react-chartjs-2
@@ -73,4 +71,3 @@ The frontend will run on `http://localhost:3000`
 
 Open your browser and navigate to `http://localhost:3000`
 
->>>>>>> c72d1ae (First push)
