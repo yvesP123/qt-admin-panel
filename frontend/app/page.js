@@ -13,6 +13,7 @@ export default function Home() {
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0); // Add this for chart refresh
 
   const fetchUsers = async () => {
     try {
@@ -53,6 +54,7 @@ export default function Home() {
           method: 'DELETE',
         });
         fetchUsers();
+        setRefreshKey(prev => prev + 1); // Force chart refresh
       } catch (error) {
         console.error('Error deleting user:', error);
       }
@@ -63,6 +65,7 @@ export default function Home() {
     setShowForm(false);
     setEditingUser(null);
     fetchUsers();
+    setRefreshKey(prev => prev + 1); // Force chart refresh
   };
 
   const toggleDarkMode = () => {
@@ -119,9 +122,9 @@ export default function Home() {
         {/* Stats Cards */}
         <StatsCards users={users} darkMode={darkMode} />
 
-        {/* Chart Section */}
+        {/* Chart Section - Add key prop here */}
         <div className="mb-6">
-          <UserChart darkMode={darkMode} />
+          <UserChart darkMode={darkMode} key={refreshKey} />
         </div>
 
         {/* Action Bar */}

@@ -26,7 +26,7 @@ ChartJS.register(
   Filler
 );
 
-export default function UserChart() {
+export default function UserChart({ darkMode }) {
   const [chartData, setChartData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -63,16 +63,16 @@ export default function UserChart() {
             label: 'Users Created',
             data: counts,
             borderColor: 'rgb(59, 130, 246)',
-            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            backgroundColor: darkMode ? 'rgba(59, 130, 246, 0.2)' : 'rgba(59, 130, 246, 0.1)',
             fill: true,
             tension: 0.4,
             pointRadius: 5,
             pointHoverRadius: 7,
             pointBackgroundColor: 'rgb(59, 130, 246)',
-            pointBorderColor: '#fff',
+            pointBorderColor: darkMode ? '#1f2937' : '#fff',
             pointBorderWidth: 2,
             pointHoverBackgroundColor: 'rgb(37, 99, 235)',
-            pointHoverBorderColor: '#fff',
+            pointHoverBorderColor: darkMode ? '#1f2937' : '#fff',
             pointHoverBorderWidth: 3,
           },
         ],
@@ -95,7 +95,7 @@ export default function UserChart() {
         display: false,
       },
       tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        backgroundColor: darkMode ? 'rgba(31, 41, 55, 0.95)' : 'rgba(0, 0, 0, 0.8)',
         padding: 12,
         titleFont: {
           size: 14,
@@ -122,10 +122,10 @@ export default function UserChart() {
           font: {
             size: 12,
           },
-          color: '#6B7280',
+          color: darkMode ? '#9CA3AF' : '#6B7280',
         },
         grid: {
-          color: 'rgba(0, 0, 0, 0.05)',
+          color: darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
           drawBorder: false,
         },
       },
@@ -134,7 +134,7 @@ export default function UserChart() {
           font: {
             size: 12,
           },
-          color: '#6B7280',
+          color: darkMode ? '#9CA3AF' : '#6B7280',
         },
         grid: {
           display: false,
@@ -146,11 +146,11 @@ export default function UserChart() {
 
   if (loading) {
     return (
-      <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
+      <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} rounded-xl shadow-lg p-6 border`}>
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
-            <p className="text-gray-600">Loading chart data...</p>
+            <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Loading chart data...</p>
           </div>
         </div>
       </div>
@@ -159,27 +159,27 @@ export default function UserChart() {
 
   if (!chartData) {
     return (
-      <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
+      <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} rounded-xl shadow-lg p-6 border`}>
         <div className="text-center py-12">
-          <svg className="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className={`w-16 h-16 mx-auto mb-4 ${darkMode ? 'text-gray-600' : 'text-gray-300'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
           </svg>
-          <p className="text-gray-600">No chart data available</p>
+          <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>No chart data available</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
+    <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} rounded-xl shadow-lg p-6 border`}>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-xl font-bold text-gray-900">User Growth</h3>
-          <p className="text-gray-600 text-sm mt-1">Users created over the last 7 days</p>
+          <h3 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>User Growth</h3>
+          <p className={`text-sm mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Users created over the last 7 days</p>
         </div>
-        <div className="flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-lg">
+        <div className={`flex items-center gap-2 px-4 py-2 rounded-lg ${darkMode ? 'bg-blue-900/30' : 'bg-blue-50'}`}>
           <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
-          <span className="text-sm font-medium text-blue-900">Daily Registrations</span>
+          <span className={`text-sm font-medium ${darkMode ? 'text-blue-400' : 'text-blue-900'}`}>Daily Registrations</span>
         </div>
       </div>
       <div className="h-64">

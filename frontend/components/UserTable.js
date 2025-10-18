@@ -7,7 +7,7 @@ import { Api_url } from '../config';
 
 
 
-export default function UserTable({ users, onEdit, onDelete }) {
+export default function UserTable({ users, onEdit, onDelete, darkMode }) {
   const [protobufUsers, setProtobufUsers] = useState([]);
   const [publicKey, setPublicKey] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -79,9 +79,9 @@ export default function UserTable({ users, onEdit, onDelete }) {
   });
 
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+    <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} rounded-xl shadow-lg overflow-hidden border`}>
       {/* Header */}
-      <div className="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
+      <div className={`px-6 py-5 border-b ${darkMode ? 'border-gray-700 bg-gradient-to-r from-gray-800 to-gray-700' : 'border-gray-200 bg-gradient-to-r from-gray-50 to-white'}`}>
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div className="flex items-center gap-4 flex-1">
             {/* Search */}
@@ -91,9 +91,13 @@ export default function UserTable({ users, onEdit, onDelete }) {
                 placeholder="Search by email..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+                className={`w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                  darkMode 
+                    ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                    : 'bg-white border-gray-300 text-black placeholder-gray-500'
+                }`}
               />
-              <svg className="absolute left-3 top-2.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className={`absolute left-3 top-2.5 w-5 h-5 ${darkMode ? 'text-gray-400' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
@@ -102,7 +106,11 @@ export default function UserTable({ users, onEdit, onDelete }) {
             <select
               value={filterRole}
               onChange={(e) => setFilterRole(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+              className={`px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                darkMode 
+                  ? 'bg-gray-700 border-gray-600 text-white' 
+                  : 'bg-white border-gray-300 text-black'
+              }`}
             >
               <option value="all">All Roles</option>
               <option value="admin">Admin</option>
@@ -114,7 +122,11 @@ export default function UserTable({ users, onEdit, onDelete }) {
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+              className={`px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                darkMode 
+                  ? 'bg-gray-700 border-gray-600 text-white' 
+                  : 'bg-white border-gray-300 text-black'
+              }`}
             >
               <option value="all">All Status</option>
               <option value="active">Active</option>
@@ -146,9 +158,9 @@ export default function UserTable({ users, onEdit, onDelete }) {
 
         {/* Results count */}
         <div className="mt-4 flex items-center justify-between text-sm">
-          <p className="text-gray-600">
-            Showing <span className="font-semibold text-gray-900">{filteredUsers.length}</span> of{' '}
-            <span className="font-semibold text-gray-900">{displayUsers.length}</span> users
+          <p className={darkMode ? 'text-gray-400' : 'text-gray-600'}>
+            Showing <span className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{filteredUsers.length}</span> of{' '}
+            <span className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{displayUsers.length}</span> users
           </p>
           {protobufUsers.length > 0 && (
             <div className="flex items-center gap-2 text-green-600 font-medium">
@@ -164,25 +176,25 @@ export default function UserTable({ users, onEdit, onDelete }) {
       {/* Table */}
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-gray-50 border-b border-gray-200">
+          <thead className={`${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'} border-b`}>
             <tr>
-              <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID</th>
-              <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Email</th>
-              <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Role</th>
-              <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-              <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Created</th>
+              <th className={`px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>ID</th>
+              <th className={`px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>Email</th>
+              <th className={`px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>Role</th>
+              <th className={`px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>Status</th>
+              <th className={`px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>Created</th>
               {protobufUsers.length > 0 && (
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Verified</th>
+                <th className={`px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>Verified</th>
               )}
-              <th className="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+              <th className={`px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-200">
+          <tbody className={`divide-y ${darkMode ? 'divide-gray-700' : 'divide-gray-200'}`}>
             {filteredUsers.length === 0 ? (
               <tr>
                 <td colSpan="7" className="px-6 py-12 text-center">
-                  <div className="flex flex-col items-center justify-center text-gray-500">
-                    <svg className="w-16 h-16 mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className={`flex flex-col items-center justify-center ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                    <svg className={`w-16 h-16 mb-4 ${darkMode ? 'text-gray-600' : 'text-gray-300'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                     </svg>
                     <p className="text-lg font-medium">No users found</p>
@@ -192,16 +204,16 @@ export default function UserTable({ users, onEdit, onDelete }) {
               </tr>
             ) : (
               filteredUsers.map((user) => (
-                <tr key={user.id} className="hover:bg-gray-50 transition-colors duration-150">
+                <tr key={user.id} className={`transition-colors duration-150 ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50'}`}>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="text-sm font-medium text-gray-900">#{user.id}</span>
+                    <span className={`text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-900'}`}>#{user.id}</span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-semibold mr-3">
                         {user.email.charAt(0).toUpperCase()}
                       </div>
-                      <span className="text-sm font-medium text-gray-900">{user.email}</span>
+                      <span className={`text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-900'}`}>{user.email}</span>
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -227,7 +239,7 @@ export default function UserTable({ users, onEdit, onDelete }) {
                       {user.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                  <td className={`px-6 py-4 whitespace-nowrap text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                     {new Date(user.createdAt).toLocaleDateString('en-US', { 
                       year: 'numeric', 
                       month: 'short', 

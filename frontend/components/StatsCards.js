@@ -1,6 +1,6 @@
 'use client';
 
-export default function StatsCards({ users }) {
+export default function StatsCards({ users, darkMode }) {
   const totalUsers = users.length;
   const activeUsers = users.filter(u => u.status === 'active').length;
   const adminUsers = users.filter(u => u.role === 'admin').length;
@@ -19,7 +19,7 @@ export default function StatsCards({ users }) {
         </svg>
       ),
       color: 'blue',
-     
+      change: `${totalUsers} total`,
     },
     {
       title: 'Active Users',
@@ -30,7 +30,7 @@ export default function StatsCards({ users }) {
         </svg>
       ),
       color: 'green',
-     
+      change: `${activeUsers} active`,
     },
     {
       title: 'Administrators',
@@ -41,7 +41,7 @@ export default function StatsCards({ users }) {
         </svg>
       ),
       color: 'purple',
-      
+      change: `${adminUsers} admins`,
     },
     {
       title: 'New Today',
@@ -68,7 +68,9 @@ export default function StatsCards({ users }) {
       {stats.map((stat, index) => (
         <div
           key={index}
-          className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-200 border border-gray-100"
+          className={`${
+            darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'
+          } rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-200 border`}
         >
           <div className="flex items-center justify-between mb-4">
             <div className={`${colorClasses[stat.color]} p-3 rounded-lg`}>
@@ -76,12 +78,18 @@ export default function StatsCards({ users }) {
                 {stat.icon}
               </div>
             </div>
-            <span className="text-xs font-semibold text-gray-500 bg-gray-100 px-2 py-1 rounded">
+            <span className={`text-xs font-semibold px-2 py-1 rounded ${
+              darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-500'
+            }`}>
               {stat.change}
             </span>
           </div>
-          <h3 className="text-gray-600 text-sm font-medium mb-1">{stat.title}</h3>
-          <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
+          <h3 className={`text-sm font-medium mb-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            {stat.title}
+          </h3>
+          <p className={`text-3xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+            {stat.value}
+          </p>
         </div>
       ))}
     </div>
