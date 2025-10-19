@@ -38,7 +38,7 @@ A mini admin panel with user management, built with Next.js (frontend) and Node.
 
 ### 1. Clone the repository
 ```bash
-git clone <your-repo-url>
+git clone <repo-url>
 cd qt-admin-panel
 ```
 
